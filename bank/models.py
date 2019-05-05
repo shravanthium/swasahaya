@@ -1,3 +1,5 @@
+import uuid
+
 # core django
 from django.db import models
 
