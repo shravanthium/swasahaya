@@ -7,7 +7,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 
-class Bank(TimeStampedModel):
+class Bank(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     bank_name = models.CharField(max_length=180)
     address = models.CharField(max_length=256)
