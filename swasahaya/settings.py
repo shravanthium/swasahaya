@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import django_heroku
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,8 +42,9 @@ INSTALLED_APPS = [
     "bank",
     "rest_framework"
 ]
-
+INSTALLED_APPS += ['corsheaders']
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -52,6 +54,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CORS_ALLOW_HEADERS = default_headers + (
+    'access-control-allow-origin',
+)
+CORS_ORIGIN_WHITELIST = (
+    'localhost',
+    '127.0.0.1',
+) 
 ROOT_URLCONF = "swasahaya.urls"
 
 TEMPLATES = [
