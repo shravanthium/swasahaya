@@ -1,11 +1,13 @@
 from django.shortcuts import get_object_or_404
+
 from rest_framework import views, status, generics, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Bank
 from .serializers import BankSerializer
-
+from .paginations import PaginateBy20
 
 class BankViewSet(viewsets.ViewSet):
     """
@@ -15,6 +17,7 @@ class BankViewSet(viewsets.ViewSet):
     Given a bank name and city, gets details of all branches of the bank in the city
     """
     permission_classes = (AllowAny, )
+    pagination_class = PaginateBy20
 
     def list(self, request):
         queryset = Bank.objects.all()
