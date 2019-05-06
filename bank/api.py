@@ -9,7 +9,7 @@ from .models import Bank
 from .serializers import BankSerializer
 from .paginations import PaginateBy20
 
-class BankViewSet(viewsets.ViewSet):
+class BankViewSet(viewsets.ModelViewSet):
     """
     retrieve:
     Given a bank branch IFSC code, get branch details
@@ -18,15 +18,18 @@ class BankViewSet(viewsets.ViewSet):
     """
     permission_classes = (AllowAny, )
     pagination_class = PaginateBy20
+    serializer_class = BankSerializer
 
-    def list(self, request):
+
+    def get_queryset(self):
         queryset = Bank.objects.all()
         city = self.request.query_params.get('city', None)
         bank_name = self.request.query_params.get('bank_name', None)
         if city is not None and bank_name is not None:
             queryset = queryset.filter(city=city,bank_name=bank_name)
-        serializer = BankSerializer(queryset, many=True)
-        return Response(serializer.data)
+        page = self.paginate_queryset(queryset)
+        serializer = BankSerializer(page, many=True)
+        return serializer.data
 
     def retrieve(self, request, ifsc_code=None):
         print(ifsc_code)
