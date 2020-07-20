@@ -1,4 +1,5 @@
-# Swasahaya(ಸ್ವಸಹಾಯ) - A self help portal 
+# Swasahaya(ಸ್ವಸಹಾಯ) 
+ A self help portal
 
 
 ## Running Locally
